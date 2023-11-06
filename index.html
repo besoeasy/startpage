@@ -13,44 +13,52 @@
 <script defer>
     (async function () {
         try {
-            let dataArray = [];
-
             const filePath = 'pages.txt';
             const cacheKey = 'cachedData';
             const cacheExpiryKey = 'cacheExpiry';
-            const cacheExpiryDays = 7;
+            const cacheExpiryDays = 10;
 
             // Check if cached data exists and has not expired
             const cachedData = localStorage.getItem(cacheKey);
             const cacheExpiry = localStorage.getItem(cacheExpiryKey);
 
             if (cachedData && cacheExpiry && Date.now() - parseInt(cacheExpiry) < cacheExpiryDays * 24 * 60 * 60 * 1000) {
-                dataArray = JSON.parse(cachedData);
+                // Use cached data if it's still valid
+                const dataArray = JSON.parse(cachedData);
+                redirectRandomURL(dataArray);
             } else {
-                const response = await fetch(filePath);
-                if (response.ok) {
-                    const textData = await response.text();
-                    dataArray = textData.split('\n').filter(Boolean);
-
+                // Fetch and process data
+                const dataArray = await fetchData(filePath);
+                if (dataArray.length > 0) {
                     // Cache the data and set the cache expiry
                     localStorage.setItem(cacheKey, JSON.stringify(dataArray));
                     localStorage.setItem(cacheExpiryKey, Date.now().toString());
+                    redirectRandomURL(dataArray);
                 } else {
-                    console.error('Failed to load data from the text file.');
+                    console.error('No valid URLs found in the data.');
                 }
-            }
-
-            if (dataArray.length > 0) {
-                const randomIndex = Math.floor(Math.random() * dataArray.length);
-                const randomURL = dataArray[randomIndex];
-                window.location.replace(randomURL);
-            } else {
-                console.error('No valid URLs found in the data.');
             }
         } catch (error) {
             console.error('An error occurred:', error);
         }
     })();
+
+    async function fetchData(filePath) {
+        const response = await fetch(filePath);
+        if (response.ok) {
+            const textData = await response.text();
+            return textData.split('\n').filter(Boolean);
+        } else {
+            console.error('Failed to load data from the text file.');
+            return [];
+        }
+    }
+
+    function redirectRandomURL(dataArray) {
+        const randomIndex = Math.floor(Math.random() * dataArray.length);
+        const randomURL = dataArray[randomIndex];
+        window.location.replace(randomURL);
+    }
 </script>
 
 </html>
