@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    Loading...
+</body>
+
+<script defer>
+    (async function () {
+        try {
+            const filePath = 'pages.txt';
+            let dataArray = [];
+            const cacheKey = 'cachedData';
+            const cacheExpiryKey = 'cacheExpiry';
+            const cacheExpiryDays = 7;
+
+            // Check if cached data exists and has not expired
+            const cachedData = localStorage.getItem(cacheKey);
+            const cacheExpiry = localStorage.getItem(cacheExpiryKey);
+
+            if (cachedData && cacheExpiry && Date.now() - parseInt(cacheExpiry) < cacheExpiryDays * 24 * 60 * 60 * 1000) {
+                dataArray = JSON.parse(cachedData);
+            } else {
+                const response = await fetch(filePath);
+                if (response.ok) {
+                    const textData = await response.text();
+                    dataArray = textData.split('\n').filter(Boolean);
+
+                    // Cache the data and set the cache expiry
+                    localStorage.setItem(cacheKey, JSON.stringify(dataArray));
+                    localStorage.setItem(cacheExpiryKey, Date.now().toString());
+                } else {
+                    console.error('Failed to load data from the text file.');
+                }
+            }
+
+            if (dataArray.length > 0) {
+                const randomIndex = Math.floor(Math.random() * dataArray.length);
+                const randomURL = dataArray[randomIndex];
+                window.location.replace(randomURL);
+            } else {
+                console.error('No valid URLs found in the data.');
+            }
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+    })();
+</script>
+
+</html>
