@@ -8,7 +8,6 @@
 <script defer>
     (async function () {
         try {
-            const filePath = 'pages.txt';
             const cacheKey = 'cachedData';
             const cacheExpiryKey = 'cacheExpiry';
             const cacheExpiryDays = 10;
@@ -23,7 +22,7 @@
                 redirectRandomURL(dataArray);
             } else {
                 // Fetch and process data
-                const dataArray = await fetchData(filePath);
+                const dataArray = await fetchData();
                 if (dataArray.length > 0) {
                     // Cache the data and set the cache expiry
                     localStorage.setItem(cacheKey, JSON.stringify(dataArray));
@@ -38,8 +37,8 @@
         }
     })();
 
-    async function fetchData(filePath) {
-        const response = await fetch(filePath);
+    async function fetchData() {
+        const response = await fetch('pages.txt');
         if (response.ok) {
             const textData = await response.text();
             return textData.split('\n').filter(Boolean);
