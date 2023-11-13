@@ -5,3 +5,4 @@ https://fast.com/
 https://randomstreetview.com/
 https://en.wikipedia.org/wiki/Special:Random
 https://coin360.com/widget/map
+https://speed.cloudflare.com/
