@@ -6,3 +6,4 @@ https://randomstreetview.com/
 https://en.wikipedia.org/wiki/Special:Random
 https://coin360.com/widget/map
 https://speed.cloudflare.com/
+https://time.is/
