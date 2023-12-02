@@ -2,7 +2,7 @@ Collection of beautiful startpages for your browser, rotated randomly to give yo
 
 
 
-## Setting "https://startpage.besoeasy.com/" as Your Default Browser Start Page
+## Setting as Your Default Browser Start Page
 
 To set "https://startpage.besoeasy.com/" as your default browser start page, follow these steps:
 
