@@ -57,9 +57,7 @@
                 localStorage.setItem(cacheExpiryKey, Date.now().toString());
 
                 // Redirect after 5 seconds
-                setTimeout(() => {
-                    redirectRandomURL(dataArray);
-                }, 5000);
+                redirectRandomURL(dataArray);
             } else {
                 console.error('No valid URLs found in the data.');
             }
