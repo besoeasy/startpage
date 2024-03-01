@@ -34,53 +34,58 @@
 </body>
 
 <script defer>
-    (async function () {
-        try {
-            const cacheKey = 'cachedData';
-            const cacheExpiryKey = 'cacheExpiry';
-            const cacheExpiryDays = 10;
+(async function () {
+    try {
+        const cacheKey = 'cachedData';
+        const cacheExpiryKey = 'cacheExpiry';
+        const cacheExpiryDays = 10;
 
-            // Check if cached data exists and has not expired
-            const cachedData = localStorage.getItem(cacheKey);
-            const cacheExpiry = localStorage.getItem(cacheExpiryKey);
+        // Check if cached data exists and has not expired
+        const cachedData = localStorage.getItem(cacheKey);
+        const cacheExpiry = localStorage.getItem(cacheExpiryKey);
 
-            if (cachedData && cacheExpiry && Date.now() - parseInt(cacheExpiry) < cacheExpiryDays * 24 * 60 * 60 * 1000) {
-                // Use cached data if it's still valid
-                const dataArray = JSON.parse(cachedData);
-                redirectRandomURL(dataArray);
-            } else {
-                // Fetch and process data
-                const dataArray = await fetchData();
-                if (dataArray.length > 0) {
-                    // Cache the data and set the cache expiry
-                    localStorage.setItem(cacheKey, JSON.stringify(dataArray));
-                    localStorage.setItem(cacheExpiryKey, Date.now().toString());
-                    redirectRandomURL(dataArray);
-                } else {
-                    console.error('No valid URLs found in the data.');
-                }
-            }
-        } catch (error) {
-            console.error('An error occurred:', error);
-        }
-    })();
-
-    async function fetchData() {
-        const response = await fetch('pages.txt');
-        if (response.ok) {
-            const textData = await response.text();
-            return textData.split('\n').filter(Boolean);
+        if (cachedData && cacheExpiry && Date.now() - parseInt(cacheExpiry) < cacheExpiryDays * 24 * 60 * 60 * 1000) {
+            // Use cached data if it's still valid
+            const dataArray = JSON.parse(cachedData);
+            redirectRandomURL(dataArray);
         } else {
-            console.error('Failed to load data from the text file.');
-            return [];
-        }
-    }
+            // Fetch and process data
+            const dataArray = await fetchData();
+            if (dataArray.length > 0) {
+                // Cache the data and set the cache expiry
+                localStorage.setItem(cacheKey, JSON.stringify(dataArray));
+                localStorage.setItem(cacheExpiryKey, Date.now().toString());
 
-    function redirectRandomURL(dataArray) {
-        const randomIndex = Math.floor(Math.random() * dataArray.length);
-        const randomURL = dataArray[randomIndex];
-        window.location.replace(randomURL);
+                // Redirect after 5 seconds
+                setTimeout(() => {
+                    redirectRandomURL(dataArray);
+                }, 5000);
+            } else {
+                console.error('No valid URLs found in the data.');
+            }
+        }
+    } catch (error) {
+        console.error('An error occurred:', error);
     }
+})();
+
+async function fetchData() {
+    const response = await fetch('pages.txt');
+    if (response.ok) {
+        const textData = await response.text();
+        return textData.split('\n').filter(Boolean);
+    } else {
+        console.error('Failed to load data from the text file.');
+        return [];
+    }
+}
+
+function redirectRandomURL(dataArray) {
+    const randomIndex = Math.floor(Math.random() * dataArray.length);
+    const randomURL = dataArray[randomIndex];
+    window.location.replace(randomURL);
+}
+
 </script>
 
 </html>
