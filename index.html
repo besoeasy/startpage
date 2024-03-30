@@ -1,88 +1,55 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body>
-<section class="max-h-screen overflow-hidden bg-orange-50 pt-10 lg:pb-24">
-  <div class="container relative m-auto p-4">
-    <div class="flex justify-center md:justify-between">
-      <div class="hidden lg:block">
-        <div class="relative z-10 h-80 w-80 rounded-3xl bg-orange-100 bg-opacity-40"></div>
-        <div class="relative z-10 h-80 w-80 rounded-3xl" style="background: linear-gradient(180deg, rgba(255, 234, 194, 0.00) 0%, #FFEAC2 100%);"></div>
-      </div>
-      <div class="hidden lg:block">
-        <div class="relative z-10 h-80 w-80 rounded-3xl bg-orange-100 bg-opacity-40"></div>
-        <div class="relative z-10 h-80 w-80 rounded-3xl" style="background: linear-gradient(180deg, rgba(255, 234, 194, 0.00) 0%, #FFEAC2 100%);"></div>
-      </div>
-    </div>
-    <div class="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 transform">
-      <div class="relative flex h-full flex-col justify-center px-8 py-12">
-        <div class="absolute left-1/2 top-0 -translate-x-1/2 transform">
-          <div class="flex justify-center gap-6">
-            <div class="h-60 w-60 bg-orange-50 bg-opacity-60"></div>
-            <div class="h-60 w-60 bg-orange-50 bg-opacity-60"></div>
-          </div>
+  <section class="overflow-hidden py-20 sm:py-32 lg:pb-32 xl:pb-36">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20">
+        <div class="relative z-10 mx-auto max-w-2xl lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6">
+          <h1 class="text-4xl font-medium uppercase tracking-tight text-gray-900"><span
+              class="text-red-400">RANDOM</span> START PAGE</h1>
+          <p class="mt-6 text-lg text-gray-600">Get inspired and refresh your browsing experience by exploring random
+            curated start pages for you.</p>
         </div>
-        <h1 class="font-heading mb-2 text-center text-8xl font-bold text-orange-500 sm:text-9xl">STARTPAGE</h1>
-      </div>
+      </div>   
     </div>
-  </div>
-</section>
+  </section>
+
 </body>
 
 <script defer>
-(async function () {
-    try {
-        const cacheKey = 'cachedData';
-        const cacheExpiryKey = 'cacheExpiry';
-        const cacheExpiryDays = 10;
 
-        // Check if cached data exists and has not expired
-        const cachedData = localStorage.getItem(cacheKey);
-        const cacheExpiry = localStorage.getItem(cacheExpiryKey);
-
-        if (cachedData && cacheExpiry && Date.now() - parseInt(cacheExpiry) < cacheExpiryDays * 24 * 60 * 60 * 1000) {
-            // Use cached data if it's still valid
-            const dataArray = JSON.parse(cachedData);
-            redirectRandomURL(dataArray);
-        } else {
-            // Fetch and process data
-            const dataArray = await fetchData();
-            if (dataArray.length > 0) {
-                // Cache the data and set the cache expiry
-                localStorage.setItem(cacheKey, JSON.stringify(dataArray));
-                localStorage.setItem(cacheExpiryKey, Date.now().toString());
-
-                // Redirect after 5 seconds
-                redirectRandomURL(dataArray);
-            } else {
-                console.error('No valid URLs found in the data.');
-            }
-        }
-    } catch (error) {
-        console.error('An error occurred:', error);
-    }
-})();
-
-async function fetchData() {
+  async function fetchData() {
     const response = await fetch('pages.txt');
     if (response.ok) {
-        const textData = await response.text();
-        return textData.split('\n').filter(Boolean);
+      const textData = await response.text();
+      return textData.split('\n').filter(Boolean);
     } else {
-        console.error('Failed to load data from the text file.');
-        return [];
+      console.error('Failed to load data from the text file.');
+      return [];
     }
-}
+  }
 
-function redirectRandomURL(dataArray) {
+  function redirectRandomURL(dataArray) {
     const randomIndex = Math.floor(Math.random() * dataArray.length);
     const randomURL = dataArray[randomIndex];
     window.location.replace(randomURL);
-}
+  }
+
+
+  (async function () {
+
+    const dataArray = await fetchData();
+
+    redirectRandomURL(dataArray);
+
+  })();
 
 </script>
 
