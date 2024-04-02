@@ -20,6 +20,10 @@ function redirectRandomURL(dataArray) {
 
     const dataArray = await fetchData();
 
-    redirectRandomURL(dataArray);
+    setTimeout(() => {
+
+        redirectRandomURL(dataArray);
+
+    }, 7000);
 
 })();
