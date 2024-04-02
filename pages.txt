@@ -7,6 +7,5 @@ https://en.wikipedia.org/wiki/Special:Random
 https://coin360.com/widget/map
 https://speed.cloudflare.com/
 https://time.is/
-https://www.google.com/search?q=periodic%20table
 https://pubchem.ncbi.nlm.nih.gov/periodic-table/
 https://willnode.github.io/random-youtube/?auto
