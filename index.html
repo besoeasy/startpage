@@ -5,52 +5,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="index.js" defer></script>
+
 </head>
 
 <body>
-  <section class="overflow-hidden py-20 sm:py-32 lg:pb-32 xl:pb-36">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20">
-        <div class="relative z-10 mx-auto max-w-2xl lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6">
-          <h1 class="text-4xl font-medium uppercase tracking-tight text-gray-900"><span
-              class="text-red-400">RANDOM</span> START PAGE</h1>
-          <p class="mt-6 text-lg text-gray-600">Get inspired and refresh your browsing experience by exploring random
-            curated start pages for you.</p>
+  <div class="flex min-h-screen items-center justify-center">
+    <div class="container p-4">
+      <div class="-mx-4 flex flex-wrap items-center">
+        <div class="mb-14 w-full px-4 lg:mb-0 lg:w-1/2">
+          <div class="mx-auto max-w-xl">
+            <a href="https://github.com/besoeasy/startpage"> <span class="mb-6 inline-flex h-6 items-center justify-center rounded border-2 border-indigo-900 bg-green-200 px-2 text-xs font-extrabold uppercase text-indigo-900 shadow-sm">GITHUB</span></a>
+            <h1 class="font-heading mb-8 text-3xl font-extrabold md:text-4xl"><span class="text-red-400">RANDOM</span> START PAGE</h1>
+            <p class="mb-6 text-xl font-extrabold leading-7">Get inspired and refresh your browsing experience by exploring random curated start pages for you.</p>
+          </div>
+        </div>
+        <div class="w-full px-4 lg:w-1/2">
+          <img class="mx-auto block" src="https://shuffle.dev/nigodo-assets/apps/two-phones.svg" alt="" />
         </div>
       </div>
     </div>
-  </section>
-
+  </div>
 </body>
-
-<script defer>
-
-  async function fetchData() {
-    const response = await fetch('pages.txt');
-    if (response.ok) {
-      const textData = await response.text();
-      return textData.split('\n').filter(Boolean);
-    } else {
-      console.error('Failed to load data from the text file.');
-      return [];
-    }
-  }
-
-  function redirectRandomURL(dataArray) {
-    const randomIndex = Math.floor(Math.random() * dataArray.length);
-    const randomURL = dataArray[randomIndex];
-    window.location.replace(randomURL);
-  }
-
-
-  (async function () {
-
-    const dataArray = await fetchData();
-
-    redirectRandomURL(dataArray);
-
-  })();
-
-</script>
 
 </html>
