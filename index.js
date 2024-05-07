@@ -10,18 +10,16 @@ async function fetchData(file) {
     }
 }
 
+function randomPick(dataArray){
+  return dataArray[Math.floor(Math.random() * dataArray.length)];
+}
+
 (async function () {
     const dataArray = await fetchData("pages.txt");
 
     setTimeout(() => {
-        const randomIndex = Math.floor(Math.random() * dataArray.length);
-        const randomURL = dataArray[randomIndex];
-
-        const searchQuery = document.querySelector("#default-search").value;
-
-        if (searchQuery.length() < 3) {
-            window.location.replace(randomURL);
-        }
+        const randomURL = randomPick(dataArray)
+         window.location.replace(randomURL);
     }, 1000 * 10);
 })();
 
@@ -34,9 +32,7 @@ async function fetchData(file) {
             event.preventDefault();
 
             const searchQuery = document.querySelector("#default-search").value;
-
-            const randomIndex = Math.floor(Math.random() * searchEngines.length);
-            const randomSearchEngine = searchEngines[randomIndex];
+            const randomSearchEngine = randomPick(searchEngines);
 
             window.location.href =
                 randomSearchEngine + encodeURIComponent(searchQuery);
