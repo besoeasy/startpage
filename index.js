@@ -19,7 +19,7 @@ async function fetchData(file) {
 
         const searchQuery = document.querySelector("#default-search").value;
 
-        if (!searchQuery) {
+        if (searchQuery.length() < 3) {
             window.location.replace(randomURL);
         }
     }, 1000 * 10);
