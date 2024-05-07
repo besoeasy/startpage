@@ -1,3 +1,13 @@
 https://www.google.com/search?q=
 https://www.bing.com/search?q=
 https://duckduckgo.com/?q=
+https://search.yahoo.com/search?p=
+https://www.yandex.com/search/?text=
+https://www.ask.com/web?q=
+https://search.aol.com/aol/search?q=
+https://www.ecosia.org/search?q=
+https://www.startpage.com/do/dsearch?query=
+https://swisscows.com/web?query=
+https://gibiru.com/results.html?q=
+https://metager.org/meta/meta.ger3?eingabe=
+https://www.perplexity.ai/search?focus=internet&q=
