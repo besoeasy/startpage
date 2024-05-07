@@ -24,7 +24,7 @@ function redirectRandomURL(dataArray) {
 
         redirectRandomURL(dataArray);
 
-    }, 7000);
+    }, 1000*10);
 
 })();
 
