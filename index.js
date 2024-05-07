@@ -9,12 +9,6 @@ async function fetchData() {
     }
 }
 
-function redirectRandomURL(dataArray) {
-    const randomIndex = Math.floor(Math.random() * dataArray.length);
-    const randomURL = dataArray[randomIndex];
-    window.location.replace(randomURL);
-}
-
 
 (async function () {
 
@@ -22,7 +16,9 @@ function redirectRandomURL(dataArray) {
 
     setTimeout(() => {
 
-        redirectRandomURL(dataArray);
+    const randomIndex = Math.floor(Math.random() * dataArray.length);
+    const randomURL = dataArray[randomIndex];
+    window.location.replace(randomURL);
 
     }, 1000*10);
 
