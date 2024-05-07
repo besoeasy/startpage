@@ -1,5 +1,6 @@
-async function fetchData() {
-    const response = await fetch('pages.txt');
+async function fetchData(file) {
+    const response = await fetch(file);
+
     if (response.ok) {
         const textData = await response.text();
         return textData.split('\n').filter(Boolean);
@@ -12,7 +13,7 @@ async function fetchData() {
 
 (async function () {
 
-    const dataArray = await fetchData();
+    const dataArray = await fetchData('pages.txt');
 
     setTimeout(() => {
 
