@@ -27,3 +27,32 @@ function redirectRandomURL(dataArray) {
     }, 7000);
 
 })();
+
+
+
+ document.addEventListener('DOMContentLoaded', function () {
+    // Array of random search engine URLs
+    const searchEngines = [
+      'https://www.google.com/search?q=',
+      'https://www.bing.com/search?q=',
+      'https://duckduckgo.com/?q=',
+    ];
+
+    // Get the search form
+    const searchForm = document.querySelector('form');
+
+    // Add submit event listener to the form
+    searchForm.addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent default form submission
+
+      // Get the search input value
+      const searchQuery = document.querySelector('#default-search').value;
+
+      // Select a random search engine URL
+      const randomIndex = Math.floor(Math.random() * searchEngines.length);
+      const randomSearchEngine = searchEngines[randomIndex];
+
+      // Redirect the user to the selected search engine URL with the search query
+      window.location.href = randomSearchEngine + encodeURIComponent(searchQuery);
+    });
+  });
