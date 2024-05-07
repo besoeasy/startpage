@@ -10,36 +10,32 @@ async function fetchData(file) {
     }
 }
 
-
 (async function () {
 
     const dataArray = await fetchData('pages.txt');
 
     setTimeout(() => {
-
-    const randomIndex = Math.floor(Math.random() * dataArray.length);
-    const randomURL = dataArray[randomIndex];
-    window.location.replace(randomURL);
-
-    }, 1000*10);
+        const randomIndex = Math.floor(Math.random() * dataArray.length);
+        const randomURL = dataArray[randomIndex];
+        window.location.replace(randomURL);
+    }, 1000 * 10);
 
 })();
 
+(async function () {
+    document.addEventListener('DOMContentLoaded', async function () {
+        const searchEngines = await fetchData('search.txt');
+        const searchForm = document.querySelector('form');
 
+        searchForm.addEventListener('submit', function (event) {
+            event.preventDefault();
 
- document.addEventListener('DOMContentLoaded', function () {
+            const searchQuery = document.querySelector('#default-search').value;
 
-    const searchEngines = await fetchData('search.txt');
-    const searchForm = document.querySelector('form');
+            const randomIndex = Math.floor(Math.random() * searchEngines.length);
+            const randomSearchEngine = searchEngines[randomIndex];
 
-    searchForm.addEventListener('submit', function (event) {
-      event.preventDefault(); 
-
-      const searchQuery = document.querySelector('#default-search').value;
-
-      const randomIndex = Math.floor(Math.random() * searchEngines.length);
-      const randomSearchEngine = searchEngines[randomIndex];
-
-      window.location.href = randomSearchEngine + encodeURIComponent(searchQuery);
+            window.location.href = randomSearchEngine + encodeURIComponent(searchQuery);
+        });
     });
-  });
+})();
